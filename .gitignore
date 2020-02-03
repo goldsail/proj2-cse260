@@ -1,0 +1,4 @@
+*.linkinfo
+*.o
+*.vcproj
+/mmpy
