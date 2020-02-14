@@ -29,10 +29,12 @@ printenv
 date
 
 # Run
-./mmpy -n 512 -x 32 -y 32 -r 10
-./mmpy -n 512 -x 64 -y 64 -r 10
-./mmpy -n 512 -x 128 -y 128 -r 10
-./mmpy -n 512 -x 256 -y 256 -r 10
+make clean
+make $(cat OPTIONS.TXT)
+./mmpy -n 256 -r 5000
+./mmpy -n 512 -r 500
+./mmpy -n 1024 -r 100
+./mmpy -n 2048 -r 10
 echo ">>> Job Ends"
 
 date
