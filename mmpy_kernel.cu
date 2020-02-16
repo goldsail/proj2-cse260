@@ -19,19 +19,19 @@ __global__ void matMul(int N, _DOUBLE_ *C, _DOUBLE_ *A, _DOUBLE_ *B) {
 
     int ty = threadIdx.y, tx = threadIdx.x;
     int by = blockIdx.y, bx = blockIdx.x;
-    int I = by*TA + ty; int J= bx*TB + tx;
+    int I = by * TA + ty; int J = bx * TB + tx;
 
     int total = N/TW;
-    if (N%TW!=0) total +=1;
+    if (N % TW != 0) total += 1;
 
-if(by*TA>=N||bx*TB>=N)return; // no need
+    if (by * TA >= N || bx * TB >= N) return; // no need
 
-// currently do not handle corner case
+    // currently do not handle corner case
 
     _DOUBLE_ Cij[NOUT] = {0};
 
     // each matrix block of C located in I, J (left upper corner)
-    for (int kk=0; kk<total; kk++){
+    for (int kk = 0; kk < total; kk++){
         
         __shared__ _DOUBLE_  a[TA][TW], b[TW][TB]; 
         
@@ -40,10 +40,10 @@ if(by*TA>=N||bx*TB>=N)return; // no need
         // load A 
 
         //# pragma unroll
-        for(int istep=0;istep<NIOUT;istep++){
+        for (int istep = 0; istep < NIOUT; istep++) {
 
             //# pragma unroll
-            for(int jstep=0;jstep<(TW/BLOCKDIM_X);jstep++){
+            for (int jstep = 0; jstep < (TW / BLOCKDIM_X); jstep++) {
                 //assert(ty+istep<TA);
                 //assert(tx+jstep<TW);    
                 //assert(I+istep<N);
@@ -55,11 +55,11 @@ if(by*TA>=N||bx*TB>=N)return; // no need
 
         // load B 
         //# pragma unroll
-        for(int istep=0;istep<TW/BLOCKDIM_Y;istep++){
+        for (int istep = 0; istep < TW / BLOCKDIM_Y; istep++) {
 
 
             //# pragma unroll
-            for(int jstep=0;jstep<NJOUT;jstep++){
+            for (int jstep = 0; jstep < NJOUT; jstep++) {
                 //assert(ty+istep<TW);
                 //assert(tx+jstep<TB);  
                 //assert(kk*TW+ty+istep<N);
@@ -73,27 +73,27 @@ if(by*TA>=N||bx*TB>=N)return; // no need
 
     // calculate multiple values of CIJ block
         //# pragma unroll
-        for (int k=0; k<TW; k++){
+        for (int k = 0; k < TW; k++) {
             //# pragma unroll
-            for(int i=0;i<NIOUT;i++){
+            for (int i = 0; i < NIOUT; i++) {
                 //# pragma unroll
-                for(int j =0;j<NJOUT;j++){
+                for (int j = 0; j < NJOUT; j++) {
                         //assert(ty+i*BLOCKDIM_Y<TA);
                         //assert(tx+j*BLOCKDIM_X<TB);  
-                        Cij[i*NJOUT+j]+=a[ty+i*BLOCKDIM_Y][k] * b[k][tx+j*BLOCKDIM_X];
+                        Cij[i*NJOUT+j] += a[ty+i*BLOCKDIM_Y][k] * b[k][tx+j*BLOCKDIM_X];
                 }
             }
         }
         __syncthreads();
     }
-        //# pragma unroll
-        for(int i=0;i<NIOUT;i++){
-           // # pragma unroll
-            for(int j =0;j<NJOUT;j++){
-            if (I+i*BLOCKDIM_Y<N && J+j*BLOCKDIM_X<N)
-                C[I*N + J + N*(i*BLOCKDIM_Y) + j*BLOCKDIM_X ]=Cij[i*NJOUT+j];
-            }
-        }
 
+    //# pragma unroll
+    for (int i = 0; i < NIOUT; i++) {
+       // # pragma unroll
+        for (int j = 0; j < NJOUT; j++) {
+        if (I + i*BLOCKDIM_Y < N && J + j*BLOCKDIM_X < N)
+            C[I*N + J + N*(i*BLOCKDIM_Y) + j*BLOCKDIM_X] = Cij[i*NJOUT+j];
+        }
+    }
 }
 
