@@ -23,10 +23,10 @@ n: 256, tx: 16, ty: 16, gridX: 16, gridY: 16, reps: 7417, epsilon: 1e-06
 Using Double precision arithmetic
 
 
-Device computation time: 6.513183 sec. [382.106902 gflops]
+Device computation time: 6.434751 sec. [386.764338 gflops]
 
      N     TX     TY   Reps       t_h     GF_h       t_d   GF_d   Host?  L1? Rnd?  BT?  SHM
-@   256    16     16    7417   0.00e+00     0.0  6.51e+00  382.1     N    N    N    N    4
+@   256    16     16    7417   0.00e+00     0.0  6.43e+00  386.8     N    N    N    N    4
 
 
 Device result: answers matched to within 1e-06

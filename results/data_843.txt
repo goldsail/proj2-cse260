@@ -23,10 +23,10 @@ n: 843, tx: 16, ty: 16, gridX: 53, gridY: 53, reps: 400, epsilon: 1e-06
 Using Double precision arithmetic
 
 
-Device computation time: 10.309327 sec. [464.881646 gflops]
+Device computation time: 9.369408 sec. [511.517581 gflops]
 
      N     TX     TY   Reps       t_h     GF_h       t_d   GF_d   Host?  L1? Rnd?  BT?  SHM
-@   843    16     16    400   0.00e+00     0.0  1.03e+01  464.9     N    N    N    N    4
+@   843    16     16    400   0.00e+00     0.0  9.37e+00  511.5     N    N    N    N    4
 
 
 Device result: answers matched to within 1e-06
