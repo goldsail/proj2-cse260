@@ -2,7 +2,7 @@
 # #SBATCH -D /home/my_user_my_dir/
 # Job name,  will be displayed on the showq command
 #SBATCH -J MMPY-CUDA
-# Filename for standard output 
+# Filename for standard output
 # At end of job, it is in the directory from which sbatch was invoked
 #SBATCH -o MMPY-CUDA.o%j
 #SBATCH -e MMPY-CUDA.e%j
@@ -12,7 +12,7 @@
 
 #  The requested wall clock job time limit in HH:MM:SS
 #  Your job will end when it exceeds this time limit
-#SBATCH --time=00:10:00 
+#SBATCH --time=00:10:00
 
 #In case there are problems with a node echo the hostname and GPU id to the log file
 hostname
@@ -31,10 +31,13 @@ date
 # Run
 make clean
 make $(cat OPTIONS.TXT)
-./mmpy -n 256 -r 5000
-./mmpy -n 512 -r 500
-./mmpy -n 1024 -r 100
-./mmpy -n 2048 -r 10
+mkdir -p results
+for n in 256 257 329 511 512 513 631 768 843 960 1023 1024 1025 1374 1536 1720 1845 2047 2048 2049
+do
+r=$[10+200000/($n/120+1)/($n/120+1)/($n/120+1)]
+echo -n "n=$n, r=$r, "
+./mmpy -n $n -r $r | tee results/data_$n.txt | grep 'Device computation time'
+done
 echo ">>> Job Ends"
 
 date
