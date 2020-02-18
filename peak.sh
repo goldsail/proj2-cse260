@@ -28,16 +28,26 @@ printenv
 
 date
 
-# Run
-make clean
-make $(cat OPTIONS.TXT)
-mkdir -p results
-for n in 256 257 329 511 512 513 631 768 843 960 1023 1024 1025 1374 1536 1720 1845 2047 2048 2049
+mkdir -p peak
+
+for n in 256 512 1024 2048
 do
-r=$[10+200000/($n/120+1)/($n/120+1)/($n/120+1)]
-echo -n "n=$n, r=$r, "
-./mmpy -n $n -r $r | tee results/data_$n.txt | grep 'Device computation time'
+for bx in 8 16
+do
+for by in 8 16
+do
+r=$[(10+200000/($n/120+1)/($n/120+1)/($n/120+1))*$bx*$by/16/16]
+if [[ $[$bx*$by] -le $[16*16] ]]
+then
+make clean >/dev/null 2>&1
+make "bx=$bx" "by=$by" >/dev/null 2>&1
+echo -n "n=$n, r=$r, bx=$bx, by=$by, " | tee -a "peak/summary.txt"
+./mmpy -n $n -r $r -R | tee "peak/result_${n}_${bx}_${by}.txt" | grep 'Device computation time' | tee -a "peak/summary.txt"
+fi
 done
+done
+done
+
 echo ">>> Job Ends"
 
 date
