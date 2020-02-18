@@ -1,0 +1,34 @@
+# devices: 1
+
+Device is a Tesla K80, capability: 3.7
+Clock speed: 823.500000 MHz
+# cores: 13
+
+Global memory: 11.173035GB
+Memory Clock Rate (MHz): 2505.000000
+Memory Bus Width (bits): 384
+Peak Memory Bandwidth (GB/s): 240.480000
+L2 Cache size: (KB): 1536.000000
+ECC Enabled
+Device can concurrently copy memory between host and device in both directions
+     and execute a kernel at the same time
+Device shares a unified address space with the host
+Device Shared Memory Config (override with -D or -S) = Shared Mem Bank Size 4B
+
+ --------- 
+CUDA Driver version: 9010, runtime version: 9010
+
+n: 1024, tx: 8, ty: 4, gridX: 128, gridY: 256, reps: 35, epsilon: 1e-06
+
+Using Double precision arithmetic
+
+Using random inputs
+
+Device computation time: 6.739048 sec. [111.531967 gflops]
+
+     N     TX     TY   Reps       t_h     GF_h       t_d   GF_d   Host?  L1? Rnd?  BT?  SHM
+@  1024     8      4     35   0.00e+00     0.0  6.74e+00  111.5     N    N    Y    N    4
+
+*** Answers verified
+
+
