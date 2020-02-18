@@ -61,7 +61,5 @@ total (including meetings)  36         32
   (e) whether and how you plan to change the way your work together and
     No, we didn't.
   (f) anything else that comes to mind.
-    Fan: Personally, I suggest we should be allowed to modify mmpy.cu file,
-      where we can decide which kernel to call according different N values.
-      If so, we could have mixed up benefits of 16x8 blocking (for larger N)
-      and 16x16 blocking (for smaller N), and therefore had better performance.
+      We can further explore the adjusted block size for different N values in setGrid.cu.
+      If so, we could have mixed up benefits of 16x8 blocking (for larger N).and 16x16 blocking (for smaller N), and therefore had better performance.
