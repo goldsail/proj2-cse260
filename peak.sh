@@ -1,3 +1,33 @@
+#!/bin/bash
+# #SBATCH -D /home/my_user_my_dir/
+# Job name,  will be displayed on the showq command
+#SBATCH -J MMPY-CUDA
+# Filename for standard output
+# At end of job, it is in the directory from which sbatch was invoked
+#SBATCH -o MMPY-CUDA.o%j
+#SBATCH -e MMPY-CUDA.e%j
+#SBATCH --get-user-env
+#SBATCH --ntasks=1
+#SBATCH --gres=gpu:1
+
+#  The requested wall clock job time limit in HH:MM:SS
+#  Your job will end when it exceeds this time limit
+#SBATCH --time=00:10:00
+
+#In case there are problems with a node echo the hostname and GPU id to the log file
+hostname
+echo $CUDA_VISIBLE_DEVICES
+
+#COMMANDS GO HERE
+
+
+
+# Print out the environment
+printenv
+
+
+date
+
 mkdir -p peak
 
 for n in 256 512 1024 2048
@@ -17,3 +47,7 @@ fi
 done
 done
 done
+
+echo ">>> Job Ends"
+
+date
