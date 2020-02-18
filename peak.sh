@@ -32,9 +32,9 @@ mkdir -p peak
 
 for n in 256 512 1024 2048
 do
-for bx in 4 8 16 32
+for bx in 8 16
 do
-for by in 4 8 16 32
+for by in 8 16
 do
 r=$[(10+200000/($n/120+1)/($n/120+1)/($n/120+1))*$bx*$by/16/16]
 if [[ $[$bx*$by] -le $[16*16] ]]
