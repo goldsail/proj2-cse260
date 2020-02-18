@@ -44,6 +44,24 @@ total (including meetings)  36         32
     Yes, we did.
   (c) the major strengths and weaknesses in your team, e.g. how
       your team worked together;
+    Strengths:
+      Zhengyang has experience in CUDA coding.
+      Fan wrote bash script to tune hyperparameters automatically.
+      We both use Git very well, so we have enjoyed our teamwork.
+    Weaknesses:
+      Since sorken machines have varying performance due to congestion and boost,
+      the results we get are usually different from each other.
+      This caused a lot of confusion in team discussion.
+      We had a hard time before reaching agreement on whether to pick 16x8 or 16x16.
   (d) the lessons learned from these events;
+    Many students use interactive sessions instead of batch queue to run experiments.
+    We realized this is discouraged because it makes resources shared.
+    Despite this, we observed that our code has better performance
+    during off-peak hours compared to peak hours in the afternoon.
   (e) whether and how you plan to change the way your work together and
+    No, we didn't.
   (f) anything else that comes to mind.
+    Fan: Personally, I suggest we should be allowed to modify mmpy.cu file,
+      where we can decide which kernel to call according different N values.
+      If so, we could have mixed up benefits of 16x8 blocking (for larger N)
+      and 16x16 blocking (for smaller N), and therefore had better performance.
